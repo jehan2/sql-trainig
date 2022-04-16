@@ -1,0 +1,49 @@
+#DDL-Create
+create database aa;
+use aa;
+create table cus(
+    id varchar(25) primary key ,
+    username varchar(25),
+    email varchar(25) unique ,
+    password varchar(25),
+    role varchar(10) check ( role='admin' or role= 'user' )
+);
+create table acc(
+    id varchar(25) primary key ,
+    blalance integer,
+    foreign key (id) references cus(id)
+);
+create table lo(
+    id varchar(10) primary key ,
+    loanAmount int default 100,
+    isPaid boolean default false,
+    acc_id varchar(10),
+    foreign key (acc_id) references acc(id)
+);
+
+#DQL-Insert
+insert into cus values ('1','Jehan','j@j.com','123','admin');
+insert into cus values ('2','Faten','f@f.com','124','user');
+insert into cus values ('3','Fai','f@ff.com','125','admin');
+insert into cus values ('4','Gofran','g@g.com','126','admin');
+
+insert into acc values ('1',500);
+insert into acc values ('2',550);
+insert into acc values ('3',500);
+insert into acc values ('4',550);
+
+#DQL-Select
+select * from cus;
+select id, email from cus;
+select * from acc;
+select * from acc where blalance > 500;
+
+#DML-Update
+update acc set blalance = 600 where id = '1';
+
+#DDL-Alter
+alter table acc add column pN varchar(10);
+alter table acc drop column pN;
+
+#DML-Delete
+delete from acc where id='3';
